@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+message HmsData {
+  enum Error {
+    LOW_BATTERY = 0;
+    WTF_AHMAD = 1; // Robot tries to skip forward or backward or off track (bad nav data)
+  }
+  enum LogLevel {
+    NORMAL = 0;
+    DEBUG = 1;
+    OVERKILL = 2;
+  }
+  float batteryVoltage = 1;
+  uint32 nCells = 2;
+  LogLevel mainLogLevel = 3;
+  LogLevel sensorsLogLevel = 4;
+  LogLevel navLogLevel = 5;
+  LogLevel guidanceLogLevel = 6;
+  uint32 networkTickRate = 7;
+  uint32 mainTickRate = 8;
+  uint32 sensorsTickRate = 9;
+  uint32 combinedTickRate = 10;
+  uint32 longestCombinedTick = 11;
+
+  uint32 nTicks = 12;
+}
+
+message CmdData{
+  enum RunState{
+    E_STOP = 0;
+    AUTO = 1;
+    TELEOP = 2;
+    SIM = 3;
+  }
+  // enum TelemetryMode{
+    // FULL = 0;
+    // INFREQUENT = 1;
+    // NONE = 2;
+  // }
+  float leftPower = 1;
+  float rightPower = 2;
+  float propPower = 3;
+  RunState runState = 4;
+  HmsData.LogLevel mainLogLevel = 5;
+  HmsData.LogLevel sensorsLogLevel = 6;
+  HmsData.LogLevel navLogLevel = 7;
+  HmsData.LogLevel guidanceLogLevel = 8;
+  uint32 nTraps = 9;
+  repeated float trapX = 10;
+  repeated float trapY = 11;
+  float simPosX = 12;
+  float simPosY = 13;
+  float simVelX = 14;
+  float simVelY = 15;
+  float simAccX = 16;
+  float simAccY = 17;
+  float simAngXy = 18;
+  float simAngVelXy = 19;
+  float simAngAccXy = 20; // angular acceleration
+  float kP_vel = 21;
+  float kD_vel = 22;
+  float kI_vel = 23;
+  float kP_drift = 24;
+  float kD_drift = 25;
+  float kI_drift = 26;
+  bool disableTelemetry = 27;
+}

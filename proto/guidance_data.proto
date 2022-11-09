@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+message GuidanceData {
+  enum Heading {
+    UP = 0;
+    RIGHT = 1;
+    DOWN = 2;
+    LEFT = 3;
+    UNKNOWN = 4;
+  }
+  float deltaT = 1;
+
+  float setpointVel = 2;
+  float vel = 3;
+  float errVel = 4;
+  float errVelI = 5;
+  float errVelD = 6;
+  
+  float kP_vel = 7;
+  float kI_vel = 8;
+  float kD_vel = 9;
+
+  float velP = 10; 
+  float velI = 11;
+  float velD = 12;
+  
+  float leftOutputVel = 13;
+  float rightOutputVel = 14;
+  float errDrift = 15;
+  float errDriftI = 16;
+  float errDriftD = 17;
+
+  float kP_drift = 18;
+  float kI_drift = 19;
+  float kD_drift = 20;
+  
+  float driftP = 21;
+  float driftI = 22;
+  float driftD = 23;
+
+  float leftOutputDrift = 24; // left motor output from drift PID
+  float rightOutputDrift = 25; // right motor output from drift PID
+
+  // combined motor output from vel and drift PIDs (unconstrained)
+  float leftTotalPID = 26; 
+  float rightTotalPID = 27;
+
+  // constrained motor outputs
+  float leftPower = 28;
+  float rightPower = 29;
+
+  float propPower = 30;
+
+  uint32 segNum = 31; // current arena segment number
+
+  bool completedTrack = 32;
+  Heading heading = 33;
+  uint32 lastCompletedSegmentTime = 34;
+}
